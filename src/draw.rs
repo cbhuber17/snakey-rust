@@ -35,5 +35,15 @@ pub fn draw_rectangle(
     let x = to_coord(x);
     let y = to_coord(y);
 
-    rectangle(color, [x, y, BLOCK_SIZE, BLOCK_SIZE], con.transform, g)
+    rectangle(
+        color,
+        [
+            x,
+            y,
+            BLOCK_SIZE * (width as f64),
+            BLOCK_SIZE * (height as f64),
+        ],
+        con.transform,
+        g,
+    )
 }
