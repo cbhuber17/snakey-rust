@@ -1,11 +1,11 @@
-use crate::draw::draw_block;
 use piston_window::types::Color;
 use piston_window::{Context, G2d};
 use std::collections::LinkedList;
 
-const SNAKE_COLOR: Color = [0.00, 0.80, 0.00, 1.00];
+use crate::draw::draw_block;
 
-#[derive(Clone, Copy, PartialEq)]
+const SNAKE_COLOR: Color = [0.00, 0.80, 0.00, 1.0];
+#[derive(Copy, Clone, PartialEq)]
 pub enum Direction {
     Up,
     Down,
@@ -23,7 +23,6 @@ impl Direction {
         }
     }
 }
-
 #[derive(Debug, Clone)]
 struct Block {
     x: i32,
@@ -39,7 +38,6 @@ pub struct Snake {
 impl Snake {
     pub fn new(x: i32, y: i32) -> Snake {
         let mut body: LinkedList<Block> = LinkedList::new();
-
         body.push_back(Block { x: x + 2, y });
         body.push_back(Block { x: x + 1, y });
         body.push_back(Block { x, y });
@@ -88,9 +86,7 @@ impl Snake {
                 y: last_y,
             },
         };
-
         self.body.push_front(new_block);
-
         let removed_block = self.body.pop_back().unwrap();
         self.tail = Some(removed_block);
     }
@@ -103,7 +99,6 @@ impl Snake {
         let (head_x, head_y): (i32, i32) = self.head_position();
 
         let mut moving_dir = self.direction;
-
         match dir {
             Some(d) => moving_dir = d,
             None => {}
@@ -112,8 +107,8 @@ impl Snake {
         match moving_dir {
             Direction::Up => (head_x, head_y - 1),
             Direction::Down => (head_x, head_y + 1),
-            Direction::Left => (head_x + 1, head_y),
-            Direction::Right => (head_x - 1, head_y),
+            Direction::Left => (head_x - 1, head_y),
+            Direction::Right => (head_x + 1, head_y),
         }
     }
 
@@ -124,14 +119,12 @@ impl Snake {
 
     pub fn overlap_tail(&self, x: i32, y: i32) -> bool {
         let mut ch = 0;
-
         for block in &self.body {
             if x == block.x && y == block.y {
                 return true;
             }
 
             ch += 1;
-
             if ch == self.body.len() - 1 {
                 break;
             }
