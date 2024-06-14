@@ -45,5 +45,5 @@ pub fn draw_rectangle(
         ],
         con.transform,
         g,
-    )
+    );
 }
