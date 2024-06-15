@@ -150,9 +150,8 @@ impl Snake {
     /// snake.move_forward(Some(Direction::Up));
     /// ```
     pub fn move_forward(&mut self, dir: Option<Direction>) {
-        match dir {
-            Some(d) => self.direction = d,
-            None => (),
+        if let Some(d) = dir {
+            self.direction = d
         }
 
         let (last_x, last_y): (i32, i32) = self.head_position();
@@ -223,9 +222,8 @@ impl Snake {
         let (head_x, head_y): (i32, i32) = self.head_position();
 
         let mut moving_dir = self.direction;
-        match dir {
-            Some(d) => moving_dir = d,
-            None => {}
+        if let Some(d) = dir {
+            moving_dir = d
         }
 
         match moving_dir {
@@ -287,6 +285,6 @@ impl Snake {
                 break;
             }
         }
-        return false;
+        false
     }
 }
